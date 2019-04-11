@@ -8,7 +8,7 @@ It ignores all non-integer arguments and returns a result for each valid integer
 
 import math, sys
 
-def pi_to(n=7):
+def pi_to(n):
     if n > 48:
         number_of_places = 48
         print("\nThe precision of pi in python is limited to 48 decimal places.\
