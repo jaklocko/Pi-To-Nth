@@ -1,33 +1,31 @@
 #! /usr/bin/env python3
 
 '''
-This program returns PI to the designated number of decimal places, truncating after 48, which is the maximum precision of PI in Python 3
+This program returns pi to the designated number of decimal places, truncating after 48, which is the maximum precision of pi in Python 3
 It performs type checking on the arguments to ensure the value supplied is an integer
-It ignores all arguments past the first
+It ignores all non-integer arguments and returns a result for each valid integer argument
 '''
 
 import math, sys
 
-def pi_to(n):
+def pi_to(n=7):
     if n > 48:
         number_of_places = 48
         print("\nThe precision of pi in python is limited to 48 decimal places.\
             \nReturning the max representable size of pi:\n")
     else:
         number_of_places = n
-    return "PI to {} places: {:.{}f}".format(number_of_places, math.pi, number_of_places)
+    return "pi to {} places: {:.{}f}".format(number_of_places, math.pi, number_of_places)
 
-def main(n=7):
-    try:
-        print(pi_to(int(n)))
-    except ValueError as e:
-        print("You need to enter an integer")
-        print(pi_to(7))
-        exit()
+def parse_args(args):
+    for arg in args[1:]:
+        if not isinstance(arg, int):
+            try:
+                print(pi_to(int(arg)))
+            except ValueError as e:
+                print("\t{} is not castable as an integer".format(arg))
+        else:
+            print(pi_to(int(arg)))
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 2:
-        main(sys.argv[1])
-    elif len(sys.argv) == 1:
-        print("Using default value of n (7)")
-        main()
+    parse_args(sys.argv)
